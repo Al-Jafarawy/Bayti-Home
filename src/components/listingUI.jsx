@@ -1,7 +1,6 @@
-// Feather Icons
 import { FiEdit2, FiTrash2 } from "react-icons/fi";
 
-export default function ListingUI({ id, data }) {
+export default function ListingUI({ data }) {
   const price = data.offer ? data.discountedPrice : data.regularPrice;
   const suffix = data.type === "sell" ? "" : " / Month";
 

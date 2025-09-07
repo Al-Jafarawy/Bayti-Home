@@ -79,14 +79,26 @@ export default function Profile() {
   console.log(listing);
   return (
     <div className="min-h-screen bg-gray-50 p-6">
-      <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10 mb-6 items-stretch">
+        {/* List Column */}
+        <div className="p-6 flex items-center justify-center w-full">
+          <div
+            className="rounded-full bg-blue-100 aspect-square 
+                w-56 sm:w-64 md:w-72 
+                flex items-center justify-center 
+                text-gray-700 font-semibold text-xl"
+          >
+            {auth?.currentUser?.displayName || "User"}
+          </div>
+        </div>
+
         {/* Profile Card */}
-        <div className="bg-white rounded-2xl shadow-md p-6">
+        <div className="bg-white rounded-2xl shadow-md p-6 w-full flex flex-col">
           <h1 className="text-2xl font-semibold text-gray-800 text-center mb-6">
             Profile
           </h1>
 
-          <div className="grid grid-cols-1 gap-4">
+          <div className="grid grid-cols-1 gap-4 flex-grow">
             <div>
               <label className="block text-sm font-medium text-gray-700">
                 Name
@@ -121,20 +133,22 @@ export default function Profile() {
           </div>
         </div>
 
-        {/* Right Column */}
-        <div className="bg-white rounded-2xl shadow-md p-6 flex flex-col items-center justify-center">
-          <h2 className="text-xl font-semibold text-gray-800 mb-4 text-center">
-            Ready to Sell or Rent?
-          </h2>
-          <p className="text-gray-600 mb-6 text-center">
-            Create a new listing to reach more buyers or renters.
-          </p>
-          <button
-            className="w-full py-3 rounded-lg bg-green-600 text-white font-semibold hover:bg-green-700 transition"
-            onClick={() => navigate("/create-listing")}
-          >
-            Sell or Rent Your Home
-          </button>
+        {/* Create Listing */}
+        <div className=" rounded-2xl -md p-6 flex flex-col items-center justify-center w-full">
+          <div className="mt-12 pt-10">
+            <h2 className="text-xl font-semibold text-gray-800 mb-4 text-center">
+              Ready to Sell or Rent?
+            </h2>
+            <p className="text-gray-600 mb-6 text-center">
+              Create a new listing to reach more buyers or renters.
+            </p>
+            <button
+              className="w-full py-2 rounded-lg bg-green-600 text-white hover:bg-green-700 transition"
+              onClick={() => navigate("/create-listing")}
+            >
+              Sell or Rent Your Home
+            </button>
+          </div>
         </div>
       </div>
 
@@ -185,7 +199,7 @@ export default function Profile() {
           </div>
         </div>
       )}
-      {/* <LocationMap lat={30.0444} lng={31.2357} /> */}
+
       <h1 className="text-2xl font-bold text-center mb-6 mt-10">My Listings</h1>
       <ul className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {listing.map((item) => (
