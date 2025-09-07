@@ -4,7 +4,7 @@ import { db } from "../firebase";
 import SpinnerOverlay from "../components/spiner";
 import CloudinaryImageUploader from "../components/cloudinary/cloudinaryImageUploader";
 import { getAuth } from "firebase/auth";
-import {  useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 
 export default function CreateListing() {
   const [name, setName] = useState("");
@@ -22,7 +22,7 @@ export default function CreateListing() {
   const [geo] = useState(true);
   const [directions, setDirections] = useState({ latitude: "", longitude: "" });
   const [loading, setLoading] = useState(false);
-const navigate= useNavigate()
+  const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -71,7 +71,7 @@ const navigate= useNavigate()
       alert(error.message);
     } finally {
       setLoading(false);
-      navigate('/profile')
+      navigate("/profile");
     }
   };
 

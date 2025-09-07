@@ -1,13 +1,21 @@
 import { getAuth, updateProfile } from "firebase/auth";
-import { doc, updateDoc } from "firebase/firestore";
-import { useState } from "react";
+import {
+  collection,
+  doc,
+  getDoc,
+  orderBy,
+  query,
+  updateDoc,
+  where,
+} from "firebase/firestore";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { db } from "../firebase";
-import LocationMap from "../components/Map/map.jsx";
+
 export default function Profile() {
   const auth = getAuth();
   const navigate = useNavigate();
-
+  const [listingArray, setListingArray] = useState(null);
   const [user, setUser] = useState({
     name: auth.currentUser.displayName,
     email: auth.currentUser.email,
@@ -16,6 +24,9 @@ export default function Profile() {
   const [tempEmail, setTempEmail] = useState(user.email);
   const [isOpen, setIsOpen] = useState(false);
 
+
+
+//change  name and email
   function handleSave() {
     if (tempName && tempEmail) {
       setUser({ name: tempName, email: tempEmail });
@@ -24,6 +35,7 @@ export default function Profile() {
     }
   }
 
+  //save change in dataBase
   async function saveDataInDB() {
     try {
       if (auth.currentUser.displayName !== tempName) {
@@ -36,11 +48,35 @@ export default function Profile() {
     }
   }
 
+  //logout fn
   function handleLogout() {
     auth.signOut();
     navigate("/");
   }
 
+  //fectching date listing
+  useEffect(() => {
+    async function fetchListingData(e) {
+      const listingRef = collection(db, "List Data");
+      const q = query(
+        listingRef,
+        where("userRef", "==", auth.currentUser.uid),
+        orderBy("timestamp", "desc")
+      );
+      const querySnap = await getDoc(q);
+      let listingArray = [];
+      querySnap.forEach((doc) => {
+        return listingArray.push({
+          id: doc.id,
+          data: doc.data(),
+        });
+      });
+      setListingArray(listingArray);
+    }
+    fetchListingData();
+  }, []);
+
+  
   return (
     <div className="min-h-screen bg-gray-50 p-6">
       <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -149,7 +185,8 @@ export default function Profile() {
           </div>
         </div>
       )}
-      <LocationMap lat={30.0444} lng={31.2357} />
+      {/* <LocationMap lat={30.0444} lng={31.2357} /> */}
+      <h1 className="text-2xl font-bold text-center mb-6 mt-10">My Listings</h1>
     </div>
   );
 }
