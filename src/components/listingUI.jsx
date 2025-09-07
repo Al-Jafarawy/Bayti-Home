@@ -2,6 +2,9 @@
 import { FiEdit2, FiTrash2 } from "react-icons/fi";
 
 export default function ListingUI({ id, data }) {
+  const price = data.offer ? data.discountedPrice : data.regularPrice;
+  const suffix = data.type === "sell" ? "" : " / Month";
+
   return (
     <li className="max-w-sm rounded-2xl shadow p-3 bg-white flex flex-col gap-2">
       <img
@@ -14,15 +17,7 @@ export default function ListingUI({ id, data }) {
 
       <p className="text-gray-600 text-sm line-clamp-2">{data.description}</p>
 
-      <div className="text-green-800 font-bold">
-        {data.type === "sell"
-          ? data.offer
-            ? `${data.discountedPrice} $ `
-            : `${data.regularPrice} $ `
-          : data.offer
-          ? `${data.discountedPrice} $  / Mounth`
-          : `${data.regularPrice} $ / Mounth`}
-      </div>
+      <div className="text-green-800 font-bold">{`${price} $${suffix}`}</div>
 
       <div className="text-xs text-gray-500">{data.address}</div>
 
