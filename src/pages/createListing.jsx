@@ -62,8 +62,7 @@ export default function CreateListing() {
         userRef: auth.currentUser.uid,
       };
 
-      const docRef = await addDoc(collection(db, "List Data"), listingDataCopy);
-      console.log("New listing ID:", docRef.id);
+      const docRef = await addDoc(collection(db, "list_data"), listingDataCopy);
 
       console.log("Form Submitted:", listingDataCopy);
     } catch (error) {
