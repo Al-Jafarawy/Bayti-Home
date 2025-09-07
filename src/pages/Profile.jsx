@@ -11,6 +11,7 @@ import {
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { db } from "../firebase";
+import ListingUI from "../components/listingUI";
 
 export default function Profile() {
   const auth = getAuth();
@@ -186,32 +187,11 @@ export default function Profile() {
       )}
       {/* <LocationMap lat={30.0444} lng={31.2357} /> */}
       <h1 className="text-2xl font-bold text-center mb-6 mt-10">My Listings</h1>
-      <h1 className="text-2xl font-bold text-center mb-6 mt-10">My Listings</h1>
-
-      <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      <ul className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {listing.map((item) => (
-          <div
-            key={item.id}
-            className="max-w-sm rounded-2xl shadow p-3 bg-white flex flex-col gap-2"
-          >
-            <img
-              src={item.data.images?.[0] || ""}
-              alt={item.data.name}
-              className="w-full h-48 object-cover rounded-xl"
-            />
-            <h2 className="text-lg font-semibold truncate">{item.data.name}</h2>
-            <p className="text-gray-600 text-sm line-clamp-2">
-              {item.data.description}
-            </p>
-            <div className="text-blue-700 font-bold">
-              {item.data.offer
-                ? `${item.data.discountedPrice} $`
-                : `${item.data.regularPrice} $`}
-            </div>
-            <div className="text-xs text-gray-500">{item.data.address}</div>
-          </div>
+          <ListingUI key={item.id} id={item.id} data={item.data} />
         ))}
-      </div>
+      </ul>
     </div>
   );
 }
