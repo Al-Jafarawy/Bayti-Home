@@ -132,15 +132,15 @@ export default function CreateListing() {
               className="w-full border rounded-lg p-2"
             />
           </div>
-          {/* Name */}
+          {/* Title */}
           <div className="md:col-span-2 lg:col-span-3">
-            <label className="block mb-2 font-medium">Name</label>
+            <label className="block mb-2 font-medium">Title</label>
             <input
               type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               className="w-full border rounded-lg p-2"
-              placeholder="Name"
+              placeholder="Listing Title"
             />
           </div>
           {/* Parking */}
@@ -273,7 +273,6 @@ export default function CreateListing() {
                 />
               </div>
 
-              {/* Offer Toggle */}
               {/* Offer Toggle */}
               <div className="flex flex-col items-center justify-center w-[80px]">
                 <span className="text-xs font-medium text-gray-700 mb-2">

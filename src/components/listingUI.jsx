@@ -26,7 +26,7 @@ export default function ListingUI({ data }) {
         )}
       </div>
 
-      <h2 className="text-lg font-semibold truncate">{data.name}</h2>
+      <h2 className="text-lg font-semibold truncate">{data.title}</h2>
 
       <p className="text-gray-600 text-sm line-clamp-2">{data.description}</p>
 
