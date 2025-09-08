@@ -25,7 +25,7 @@ export default function Profile() {
   const [tempEmail, setTempEmail] = useState(user.email);
   const [isOpen, setIsOpen] = useState(false);
 
-  //change  name and email
+  // change name and email
   function handleSave() {
     if (tempName && tempEmail) {
       setUser({ name: tempName, email: tempEmail });
@@ -34,7 +34,7 @@ export default function Profile() {
     }
   }
 
-  //save change in dataBase
+  // save change in database
   async function saveDataInDB() {
     try {
       if (auth.currentUser.displayName !== tempName) {
@@ -47,13 +47,13 @@ export default function Profile() {
     }
   }
 
-  //logout fn
+  // logout fn
   function handleLogout() {
     auth.signOut();
     navigate("/");
   }
 
-  //fectching date listing
+  // fetching data listing
   useEffect(() => {
     async function fetchListingData() {
       const listingRef = collection(db, "list_data");
@@ -63,19 +63,16 @@ export default function Profile() {
         orderBy("timestamp", "desc")
       );
       const querySnap = await getDocs(q);
-      const listingArray = [];
-      querySnap.forEach((docSnap) => {
-        listingArray.push({
-          id: docSnap.id,
-          data: docSnap.data(),
-        });
-      });
-      setListing(listingArray);
+
+      const listings = querySnap.docs.map((docSnap) => ({
+        id: docSnap.id,
+        ...docSnap.data(),
+      }));
+
+      setListing(listings);
     }
     fetchListingData();
   }, [auth.currentUser.uid]);
-
-  console.log(listing);
 
   return (
     <div className="min-h-screen bg-gray-50 p-6">
@@ -133,7 +130,7 @@ export default function Profile() {
         </div>
 
         {/* Create Listing */}
-        <div className=" rounded-2xl -md p-6 flex flex-col items-center justify-center w-full">
+        <div className="rounded-2xl p-6 flex flex-col items-center justify-center w-full">
           <div className="mt-12 pt-10">
             <h2 className="text-xl font-semibold text-gray-800 mb-4 text-center">
               Ready to Sell or Rent?
@@ -199,12 +196,12 @@ export default function Profile() {
         </div>
       )}
 
-      <h1 className="text-2xl font-bold text-center mb-6 mt-10 mb-10">
+      <h1 className="text-2xl font-bold text-center mt-10 mb-10">
         My Listings
       </h1>
       <ul className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {listing.map((item) => (
-          <ListingUI key={item.id} id={item.id} data={item.data} />
+          <ListingUI key={item.id} data={item} />
         ))}
       </ul>
     </div>

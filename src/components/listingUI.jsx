@@ -1,15 +1,22 @@
 import { FiEdit2, FiTrash2 } from "react-icons/fi";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import ConfirmDelete from "./Popup/confirmDelete";
+import { useState } from "react";
 dayjs.extend(relativeTime);
 
 export default function ListingUI({ data }) {
+  const [showDeletePopup, setShowDeletePopup] = useState(false);
   const price = data.offer ? data.discountedPrice : data.regularPrice;
   const suffix = data.type === "sell" ? "" : " / Month";
-
   const createdAt = data.timestamp
     ? dayjs(data.timestamp.toDate()).fromNow()
     : "";
+
+  //fn
+  function deletePopupState() {
+    return setShowDeletePopup(!showDeletePopup);
+  }
 
   return (
     <li className="max-w-sm rounded-2xl shadow p-3 bg-white flex flex-col gap-2">
@@ -44,10 +51,20 @@ export default function ListingUI({ data }) {
           <button className="text-blue-600 hover:text-blue-800" title="Edit">
             <FiEdit2 size={18} />
           </button>
-          <button className="text-red-600 hover:text-red-800" title="Delete">
+          <button
+            onClick={deletePopupState}
+            className="text-red-600 hover:text-red-800"
+            title="Delete"
+          >
             <FiTrash2 size={18} />
           </button>
         </div>
+        {showDeletePopup && (
+          <ConfirmDelete
+            docId={data.id}
+            setShowDeletePopup={setShowDeletePopup}
+          />
+        )}
       </div>
     </li>
   );
