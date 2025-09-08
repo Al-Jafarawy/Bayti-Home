@@ -7,7 +7,7 @@ import { getAuth } from "firebase/auth";
 import { useNavigate } from "react-router";
 
 export default function CreateListing() {
-  const [name, setName] = useState("");
+  const [title, setTitle] = useState("");
   const [type, setType] = useState("sell");
   const [beds, setBeds] = useState(1);
   const [baths, setBaths] = useState(1);
@@ -48,7 +48,7 @@ export default function CreateListing() {
         type,
         beds,
         baths,
-        name,
+        title,
         parking,
         furnished,
         offer,
@@ -137,8 +137,8 @@ export default function CreateListing() {
             <label className="block mb-2 font-medium">Name</label>
             <input
               type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
               className="w-full border rounded-lg p-2"
               placeholder="Name"
             />

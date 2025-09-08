@@ -7,8 +7,9 @@ export default function ListingUI({ data }) {
   const price = data.offer ? data.discountedPrice : data.regularPrice;
   const suffix = data.type === "sell" ? "" : " / Month";
 
-  // تحويل وقت التسجيل لوقت نسبي
-  const createdAt = data.timestamp ? dayjs(data.timestamp.toDate()).fromNow() : "";
+  const createdAt = data.timestamp
+    ? dayjs(data.timestamp.toDate()).fromNow()
+    : "";
 
   return (
     <li className="max-w-sm rounded-2xl shadow p-3 bg-white flex flex-col gap-2">
