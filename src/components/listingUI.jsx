@@ -1,16 +1,29 @@
 import { FiEdit2, FiTrash2 } from "react-icons/fi";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+dayjs.extend(relativeTime);
 
 export default function ListingUI({ data }) {
   const price = data.offer ? data.discountedPrice : data.regularPrice;
   const suffix = data.type === "sell" ? "" : " / Month";
 
+  // تحويل وقت التسجيل لوقت نسبي
+  const createdAt = data.timestamp ? dayjs(data.timestamp.toDate()).fromNow() : "";
+
   return (
     <li className="max-w-sm rounded-2xl shadow p-3 bg-white flex flex-col gap-2">
-      <img
-        src={data.images?.[0] || ""}
-        alt={data.name}
-        className="w-full h-48 object-cover rounded-xl"
-      />
+      <div className="relative">
+        <img
+          src={data.images?.[0] || ""}
+          alt={data.name}
+          className="w-full h-48 object-cover rounded-xl"
+        />
+        {createdAt && (
+          <span className="absolute top-2 left-2 bg-black/60 text-white text-xs px-2 py-1 rounded-lg">
+            {createdAt}
+          </span>
+        )}
+      </div>
 
       <h2 className="text-lg font-semibold truncate">{data.name}</h2>
 

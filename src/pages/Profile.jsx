@@ -54,7 +54,6 @@ export default function Profile() {
   }
 
   //fectching date listing
-  // صحح التجميع
   useEffect(() => {
     async function fetchListingData() {
       const listingRef = collection(db, "list_data");
@@ -77,6 +76,7 @@ export default function Profile() {
   }, [auth.currentUser.uid]);
 
   console.log(listing);
+
   return (
     <div className="min-h-screen bg-gray-50 p-6">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10 mb-6 items-stretch">
@@ -97,7 +97,6 @@ export default function Profile() {
           <h1 className="text-2xl font-semibold text-gray-800 text-center mb-6">
             Profile
           </h1>
-
           <div className="grid grid-cols-1 gap-4 flex-grow">
             <div>
               <label className="block text-sm font-medium text-gray-700">
@@ -108,10 +107,10 @@ export default function Profile() {
               </div>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">
+              <label className="block text-sm font-medium text-gray-700 ">
                 Email
               </label>
-              <div className="mt-1 px-3 py-2 rounded-lg border border-gray-300 bg-white text-gray-900">
+              <div className="mt-1 px-3 py-2 rounded-lg border border-gray-300 bg-white text-gray-900 overflow-hidden ">
                 {user.email}
               </div>
             </div>
@@ -200,7 +199,9 @@ export default function Profile() {
         </div>
       )}
 
-      <h1 className="text-2xl font-bold text-center mb-6 mt-10">My Listings</h1>
+      <h1 className="text-2xl font-bold text-center mb-6 mt-10 mb-10">
+        My Listings
+      </h1>
       <ul className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {listing.map((item) => (
           <ListingUI key={item.id} id={item.id} data={item.data} />
