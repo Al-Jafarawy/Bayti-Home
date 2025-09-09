@@ -1,5 +1,12 @@
 import { useEffect, useState } from "react";
-import { addDoc, collection, doc, getDoc, serverTimestamp } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  getDoc,
+  serverTimestamp,
+  updateDoc,
+} from "firebase/firestore";
 import { db } from "../firebase";
 import SpinnerOverlay from "../components/spiner";
 import CloudinaryImageUploader from "../components/cloudinary/cloudinaryImageUploader";
@@ -54,7 +61,7 @@ export default function CreateListing() {
   }, []);
 
   const handleChange = (field, value) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+    setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
   const handleSubmit = async (e) => {
@@ -87,9 +94,8 @@ export default function CreateListing() {
         timestamp: serverTimestamp(),
         userRef: auth.currentUser.uid,
       };
-
-      await addDoc(collection(db, "list_data"), listingData);
-      console.log("Form Submitted:", listingData);
+      const docRef = doc(db, "list_data", params.listingId)
+      await updateDoc(docRef, formData);
       navigate("/profile");
     } catch (error) {
       console.error("Error adding document:", error);
@@ -101,7 +107,10 @@ export default function CreateListing() {
 
   return (
     <div className="min-h-screen bg-green-50 p-6">
-      <form onSubmit={handleSubmit} className="max-w-6xl mx-auto bg-white shadow-md rounded-2xl p-6">
+      <form
+        onSubmit={handleSubmit}
+        className="max-w-6xl mx-auto bg-white shadow-md rounded-2xl p-6"
+      >
         <h1 className="text-2xl font-bold text-center mb-6">Edit a Listing</h1>
         {loading && <SpinnerOverlay />}
 
@@ -110,12 +119,14 @@ export default function CreateListing() {
           <div>
             <label className="block mb-2 font-medium">Sell / Rent</label>
             <div className="flex gap-2">
-              {["sell", "rent"].map(t => (
+              {["sell", "rent"].map((t) => (
                 <button
                   key={t}
                   type="button"
                   onClick={() => handleChange("type", t)}
-                  className={`flex-1 py-2 rounded-lg border ${formData.type === t ? "bg-gray-700 text-white" : "bg-white"}`}
+                  className={`flex-1 py-2 rounded-lg border ${
+                    formData.type === t ? "bg-gray-700 text-white" : "bg-white"
+                  }`}
                 >
                   {t.toUpperCase()}
                 </button>
@@ -130,7 +141,7 @@ export default function CreateListing() {
               type="number"
               min="1"
               value={formData.beds}
-              onChange={e => handleChange("beds", Number(e.target.value))}
+              onChange={(e) => handleChange("beds", Number(e.target.value))}
               className="w-full border rounded-lg p-2"
             />
           </div>
@@ -142,7 +153,7 @@ export default function CreateListing() {
               type="number"
               min="1"
               value={formData.baths}
-              onChange={e => handleChange("baths", Number(e.target.value))}
+              onChange={(e) => handleChange("baths", Number(e.target.value))}
               className="w-full border rounded-lg p-2"
             />
           </div>
@@ -153,7 +164,7 @@ export default function CreateListing() {
             <input
               type="text"
               value={formData.title}
-              onChange={e => handleChange("title", e.target.value)}
+              onChange={(e) => handleChange("title", e.target.value)}
               className="w-full border rounded-lg p-2"
               placeholder="Listing Title"
             />
@@ -163,12 +174,16 @@ export default function CreateListing() {
           <div>
             <label className="block mb-2 font-medium">Parking spot</label>
             <div className="flex gap-2">
-              {[true, false].map(p => (
+              {[true, false].map((p) => (
                 <button
                   key={p.toString()}
                   type="button"
                   onClick={() => handleChange("parking", p)}
-                  className={`flex-1 py-2 rounded-lg border ${formData.parking === p ? "bg-gray-700 text-white" : "bg-white"}`}
+                  className={`flex-1 py-2 rounded-lg border ${
+                    formData.parking === p
+                      ? "bg-gray-700 text-white"
+                      : "bg-white"
+                  }`}
                 >
                   {p ? "YES" : "NO"}
                 </button>
@@ -180,12 +195,16 @@ export default function CreateListing() {
           <div>
             <label className="block mb-2 font-medium">Furnished</label>
             <div className="flex gap-2">
-              {[true, false].map(f => (
+              {[true, false].map((f) => (
                 <button
                   key={f.toString()}
                   type="button"
                   onClick={() => handleChange("furnished", f)}
-                  className={`flex-1 py-2 rounded-lg border ${formData.furnished === f ? "bg-gray-700 text-white" : "bg-white"}`}
+                  className={`flex-1 py-2 rounded-lg border ${
+                    formData.furnished === f
+                      ? "bg-gray-700 text-white"
+                      : "bg-white"
+                  }`}
                 >
                   {f ? "YES" : "NO"}
                 </button>
@@ -198,7 +217,7 @@ export default function CreateListing() {
             <label className="block mb-2 font-medium">Address</label>
             <textarea
               value={formData.address}
-              onChange={e => handleChange("address", e.target.value)}
+              onChange={(e) => handleChange("address", e.target.value)}
               className="w-full border rounded-lg p-2"
               placeholder="Address"
             />
@@ -215,7 +234,12 @@ export default function CreateListing() {
                   type="number"
                   step="any"
                   value={formData.directions.latitude}
-                  onChange={e => handleChange("directions", { ...formData.directions, latitude: e.target.value })}
+                  onChange={(e) =>
+                    handleChange("directions", {
+                      ...formData.directions,
+                      latitude: e.target.value,
+                    })
+                  }
                   className="w-full border rounded-lg p-2"
                 />
               </div>
@@ -227,7 +251,12 @@ export default function CreateListing() {
                   max="180"
                   min="-180"
                   value={formData.directions.longitude}
-                  onChange={e => handleChange("directions", { ...formData.directions, longitude: e.target.value })}
+                  onChange={(e) =>
+                    handleChange("directions", {
+                      ...formData.directions,
+                      longitude: e.target.value,
+                    })
+                  }
                   className="w-full border rounded-lg p-2"
                 />
               </div>
@@ -239,7 +268,7 @@ export default function CreateListing() {
             <label className="block mb-2 font-medium">Description</label>
             <textarea
               value={formData.description}
-              onChange={e => handleChange("description", e.target.value)}
+              onChange={(e) => handleChange("description", e.target.value)}
               className="w-full border rounded-lg p-2"
               placeholder="Description"
             />
@@ -252,27 +281,39 @@ export default function CreateListing() {
               <input
                 type="number"
                 value={formData.regularPrice}
-                onChange={e => handleChange("regularPrice", Number(e.target.value))}
+                onChange={(e) =>
+                  handleChange("regularPrice", Number(e.target.value))
+                }
                 className="w-full border rounded-lg p-2 lg:min-w-[160px]"
                 placeholder="Regular Price"
               />
               <input
                 type="number"
                 value={formData.discountedPrice}
-                onChange={e => handleChange("discountedPrice", Number(e.target.value))}
+                onChange={(e) =>
+                  handleChange("discountedPrice", Number(e.target.value))
+                }
                 disabled={!formData.offer}
-                className={`w-full border rounded-lg p-2 lg:min-w-[160px] ${!formData.offer ? "bg-gray-100 cursor-not-allowed" : ""}`}
+                className={`w-full border rounded-lg p-2 lg:min-w-[160px] ${
+                  !formData.offer ? "bg-gray-100 cursor-not-allowed" : ""
+                }`}
                 placeholder="Discounted Price"
               />
               <div className="flex flex-col items-center justify-center w-[80px]">
-                <span className="text-xs font-medium text-gray-700 mb-2">Offer</span>
+                <span className="text-xs font-medium text-gray-700 mb-2">
+                  Offer
+                </span>
                 <button
                   type="button"
                   onClick={() => handleChange("offer", !formData.offer)}
-                  className={`w-12 h-6 rounded-full relative transition-colors duration-300 ${formData.offer ? "bg-green-500" : "bg-gray-300"}`}
+                  className={`w-12 h-6 rounded-full relative transition-colors duration-300 ${
+                    formData.offer ? "bg-green-500" : "bg-gray-300"
+                  }`}
                 >
                   <span
-                    className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow transform transition-transform duration-300 ${formData.offer ? "translate-x-6" : "translate-x-0"}`}
+                    className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow transform transition-transform duration-300 ${
+                      formData.offer ? "translate-x-6" : "translate-x-0"
+                    }`}
                   />
                 </button>
               </div>
@@ -282,13 +323,18 @@ export default function CreateListing() {
           {/* Images */}
           <div className="md:col-span-2 lg:col-span-3">
             <label className="block mb-2 font-medium">Images</label>
-            <p className="text-sm mb-2">The first image will be the cover (max 3).</p>
+            <p className="text-sm mb-2">
+              The first image will be the cover (max 3).
+            </p>
             <CloudinaryImageUploader images={images} setImages={setImages} />
           </div>
         </div>
 
-        <button type="submit" className="mt-6 w-full bg-gray-700 text-white py-3 rounded-lg font-semibold">
-          Create Listing
+        <button
+          type="submit"
+          className="mt-6 w-full bg-gray-700 text-white py-3 rounded-lg font-semibold"
+        >
+          Edit Listing
         </button>
       </form>
     </div>
