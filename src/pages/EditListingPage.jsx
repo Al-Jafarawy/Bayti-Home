@@ -21,45 +21,44 @@ export default function CreateListing() {
     discountedPrice: "",
     directions: { latitude: "", longitude: "" },
   });
-  
+
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const params = useParams();
-useEffect(() => {
-  if (!params.listingId) return navigate("/profile");
+  useEffect(() => {
+    if (!params.listingId) return navigate("/profile");
 
-  const fetchListing = async () => {
-    setLoading(true);
-    try {
-      const auth = getAuth();
-      const docRef = doc(db, "list_data", params.listingId);
-      const docSnap = await getDoc(docRef);
+    const fetchListing = async () => {
+      setLoading(true);
+      try {
+        const auth = getAuth();
+        const docRef = doc(db, "list_data", params.listingId);
+        const docSnap = await getDoc(docRef);
 
-      if (docSnap.exists()) {
-        // virifing that user own listing
-        if (docSnap.data().userRef !== auth.currentUser?.uid) {
-          alert("You are not authorized to edit this listing");
-          navigate("/profile"); 
-          return;
+        if (docSnap.exists()) {
+          // virifing that user own listing
+          if (docSnap.data().userRef !== auth.currentUser?.uid) {
+            navigate("/profile");
+            return;
+          }
+
+          setFormData({ ...docSnap.data() });
+          setImages(docSnap.data().images || []);
+        } else {
+          alert("Problem in fetching data to edit");
+          navigate("/profile");
         }
-
-        setFormData({ ...docSnap.data() });
-        setImages(docSnap.data().images || []);
-      } else {
-        alert("Problem in fetching data to edit");
-        navigate("/profile");
+      } catch (error) {
+        console.error("Error fetching document:", error);
+        alert("Error fetching data");
+      } finally {
+        setLoading(false);
       }
-    } catch (error) {
-      console.error("Error fetching document:", error);
-      alert("Error fetching data");
-    } finally {
-      setLoading(false);
-    }
-  };
+    };
 
-  fetchListing();
-}, []);
+    fetchListing();
+  }, []);
 
   const handleChange = (field, value) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
