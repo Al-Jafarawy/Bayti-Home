@@ -13,11 +13,11 @@ export default function CreateListing() {
   const [baths, setBaths] = useState(1);
   const [parking, setParking] = useState(true);
   const [furnished, setFurnished] = useState(false);
-  const [offer, setOffer] = useState(true);
+  const [offer, setOffer] = useState(false);
   const [address, setAddress] = useState("");
   const [description, setDescription] = useState("");
-  const [regularPrice, setRegularPrice] = useState(50);
-  const [discountedPrice, setDiscountedPrice] = useState(0);
+  const [regularPrice, setRegularPrice] = useState("");
+  const [discountedPrice, setDiscountedPrice] = useState("");
   const [images, setImages] = useState([]);
   const [geo] = useState(true);
   const [directions, setDirections] = useState({ latitude: "", longitude: "" });
@@ -251,7 +251,6 @@ export default function CreateListing() {
               <div className="flex-1 min-w-0 lg:min-w-[160px]">
                 <input
                   type="number"
-                  min="50"
                   value={regularPrice}
                   onChange={(e) => setRegularPrice(Number(e.target.value))}
                   className="w-full border rounded-lg p-2"
