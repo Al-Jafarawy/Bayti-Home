@@ -3,9 +3,11 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import ConfirmDelete from "./Popup/confirmDelete";
 import { useState } from "react";
+import { useNavigate } from "react-router";
 dayjs.extend(relativeTime);
 
 export default function ListingUI({ data }) {
+  const navigate =useNavigate()
   const [showDeletePopup, setShowDeletePopup] = useState(false);
   const price = data.offer ? data.discountedPrice : data.regularPrice;
   const suffix = data.type === "sell" ? "" : " / Month";
@@ -16,6 +18,9 @@ export default function ListingUI({ data }) {
   //fn
   function deletePopupState() {
     return setShowDeletePopup(!showDeletePopup);
+  }
+  function EditPopupState() {
+    return navigate( `/edit-listing/${data.id}`);
   }
 
   return (
@@ -48,7 +53,11 @@ export default function ListingUI({ data }) {
         </div>
 
         <div className="flex gap-3 text-gray-500">
-          <button className="text-blue-600 hover:text-blue-800" title="Edit">
+          <button
+            className="text-blue-600 hover:text-blue-800"
+            title="Edit"
+            onClick={EditPopupState}
+          >
             <FiEdit2 size={18} />
           </button>
           <button
