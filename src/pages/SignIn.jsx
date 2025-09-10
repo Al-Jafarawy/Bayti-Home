@@ -31,7 +31,7 @@ export default function SignIn() {
 
       if (userCredential.user) navigate("/");
     } catch (error) {
-      alert("Error signing in: " + error.message);
+      alert("Please Make sure from your password and user name");
     }
   }
 

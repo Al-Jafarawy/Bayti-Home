@@ -12,9 +12,9 @@ export default function ForgotPassword() {
   async function onSubmitFn(e) {
     e.preventDefault();
     try {
-      const auth = getAuth()
-      await sendPasswordResetEmail(auth, email)
-      alert('send sucessfully')
+      const auth = getAuth();
+      await sendPasswordResetEmail(auth, email);
+      alert("Link send sucessfully Check your inbox");
     } catch (error) {
       alert("can't reset password ", error);
     }
