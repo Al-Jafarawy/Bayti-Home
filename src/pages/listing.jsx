@@ -169,7 +169,7 @@ export default function Listing() {
         </div>
 
         {/* Map Card */}
-        <div className="bg-white shadow rounded-2xl flex flex-col w-full">
+        <div className="bg-gradient-to-tr from-white to-blue-50 shadow-xl rounded-3xl flex flex-col  overflow-hidden">
           <h2 className="text-lg font-semibold text-slate-700 text-center p-4 bg-gray-100 rounded">
             Location
           </h2>
