@@ -4,10 +4,11 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import ConfirmDelete from "./Popup/confirmDelete";
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
 dayjs.extend(relativeTime);
 
 export default function ListingUI({ data }) {
-  const navigate =useNavigate()
+  const navigate = useNavigate();
   const [showDeletePopup, setShowDeletePopup] = useState(false);
   const price = data.offer ? data.discountedPrice : data.regularPrice;
   const suffix = data.type === "sell" ? "" : " / Month";
@@ -20,23 +21,25 @@ export default function ListingUI({ data }) {
     return setShowDeletePopup(!showDeletePopup);
   }
   function EditPopupState() {
-    return navigate( `/edit-listing/${data.id}`);
+    return navigate(`/edit-listing/${data.id}`);
   }
 
   return (
     <li className="max-w-sm rounded-2xl shadow p-3 bg-white flex flex-col gap-2">
-      <div className="relative">
-        <img
-          src={data.images?.[0] || ""}
-          alt={data.name}
-          className="w-full h-48 object-cover rounded-xl"
-        />
-        {createdAt && (
-          <span className="absolute top-2 left-2 bg-black/60 text-white text-xs px-2 py-1 rounded-lg">
-            {createdAt}
-          </span>
-        )}
-      </div>
+      <Link className="contents" to={`/listing/${data.type}/${data.id}`}>
+        <div className="relative">
+          <img
+            src={data.images?.[0] || ""}
+            alt={data.name}
+            className="w-full h-48 object-cover rounded-xl"
+          />
+          {createdAt && (
+            <span className="absolute top-2 left-2 bg-black/60 text-white text-xs px-2 py-1 rounded-lg">
+              {createdAt}
+            </span>
+          )}
+        </div>
+      </Link>
 
       <h2 className="text-lg font-semibold truncate">{data.title}</h2>
 
