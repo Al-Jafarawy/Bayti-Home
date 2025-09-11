@@ -1,8 +1,7 @@
 
 .MapContainer {
   height: 300px;
-  min-width: 280px;
-  max-width: 400px;
+  width: 100%;
 }
 
 .leaflet-touch .leaflet-bar a {

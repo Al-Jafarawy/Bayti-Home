@@ -9,6 +9,7 @@ import { IoMdShareAlt } from "react-icons/io";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation, Pagination, EffectFade } from "swiper/modules";
 import "swiper/css/bundle";
+import LocationMap from "../components/Map/map";
 
 export default function Listing() {
   const params = useParams();
@@ -23,6 +24,7 @@ export default function Listing() {
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
+          console.log("Listing Data:", docSnap.data()); // اطبع البيانات كلها
           setListing(docSnap.data());
         } else {
           setListing(null);
@@ -82,6 +84,39 @@ export default function Listing() {
           Link Copied
         </div>
       )}
+
+      {/* Cards Section */}
+      <div className="w-full min-h-screen flex justify-center items-start py-6">
+        <div className="w-full max-w-6xl px-4 grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Card 1 */}
+          <div className="bg-white shadow rounded-2xl p-6 flex flex-col w-full">
+            <h2 className="text-lg font-semibold text-slate-700">Card 1</h2>
+            <p className="text-sm text-slate-500 mt-2">
+              Content for the first card goes here.
+            </p>
+          </div>
+
+          {/* Card 2 */}
+          <div className="bg-white shadow rounded-2xl p-6 flex flex-col w-full">
+            <h2 className="text-lg font-semibold text-slate-700 text-center pb-4">
+              Location
+            </h2>
+            {listing.directions?.latitude && listing.directions?.longitude ? (
+              <div className="flex justify-center items-center">
+                <LocationMap
+                  className="rounded w-full h-64 md:w-3/4"
+                  lat={parseFloat(listing.directions.latitude)}
+                  lng={parseFloat(listing.directions.longitude)}
+                />
+              </div>
+            ) : (
+              <p className="text-sm text-red-500 text-center">
+                No location data
+              </p>
+            )}
+          </div>
+        </div>
+      </div>
     </main>
   );
 }

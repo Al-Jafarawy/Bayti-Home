@@ -9,7 +9,7 @@ const customIcon = new L.Icon({
   iconAnchor: [12, 41],
 });
 
-export default function LocationMap({ lat = 31.0341, lng = 30.4682 }) {
+export default function LocationMap({ lat , lng  }) {
   const position = [lat, lng];
 
   return (
