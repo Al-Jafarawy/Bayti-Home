@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { db } from "../firebase";
 import SpinnerOverlay from "../components/spiner";
+import { IoMdShareAlt } from "react-icons/io";
 
 //Swiper
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -62,6 +63,14 @@ export default function Listing() {
           </SwiperSlide>
         ))}
       </Swiper>
+      <div
+        className="fixed top-[13%] right-[3%] z-10 bg-white cursor-pointer rounded-full border-2 bourder-gray-400 w-12 h-12 flex justify-center items-center"
+        onClick={() => {
+          navigator.clipboard.writeText(window.location.href);
+        }}
+      >
+        <IoMdShareAlt className="text-lg  text-slate-500" />
+      </div>
     </main>
   );
 }
