@@ -14,6 +14,7 @@ export default function Listing() {
   const params = useParams();
   const [listing, setListing] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [linkCopiedPop, setLinkCopiedPop] = useState(false);
 
   useEffect(() => {
     async function fetchListing() {
@@ -67,10 +68,20 @@ export default function Listing() {
         className="fixed top-[13%] right-[3%] z-10 bg-white cursor-pointer rounded-full border-2 bourder-gray-400 w-12 h-12 flex justify-center items-center"
         onClick={() => {
           navigator.clipboard.writeText(window.location.href);
+          setLinkCopiedPop(true);
+          setTimeout(() => {
+            setLinkCopiedPop(false);
+          }, 2000);
         }}
       >
         <IoMdShareAlt className="text-lg  text-slate-500" />
       </div>
+
+      {linkCopiedPop && (
+        <div className="fixed top-[22%] right-[5%] z-50 bg-white text-slate-600 border-2 rounded border-blue-200 w-32 p-2 flex justify-center items-center">
+          Link Copied
+        </div>
+      )}
     </main>
   );
 }
