@@ -195,7 +195,7 @@ export default function Profile() {
           </div>
         </div>
       )}
-      <h1 className="text-2xl font-bold text-center mt-10 mb-10">
+      <h1 className="text-center text-4xl font-handwriting text-teal-700 drop-shadow-md mb-2 p-10">
         My Listings
       </h1>
       <div className="flex  justify-center items-center">

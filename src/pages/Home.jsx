@@ -38,15 +38,16 @@ export default function Home() {
     <>
       <div>
         <HomePageSlider />
-
-        <h1 className="text-2xl font-bold text-center mt-10 mb-10 max-w-7xl">
+        <h1 className="text-center text-4xl font-handwriting text-teal-700 drop-shadow-md mb-2 p-10">
           My Listings
         </h1>
-        <ul className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          {offers.map((item) => (
-            <ListingUI key={item.id} data={item} />
-          ))}
-        </ul>
+        <div className="flex  justify-center items-center">
+          <ul className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  max-w-7xl">
+            {offers.map((item) => (
+              <ListingUI key={item.id} data={item} />
+            ))}
+          </ul>
+        </div>
       </div>
     </>
   );
