@@ -1,4 +1,5 @@
-// src/components/Map/Map.jsx
+
+
 import { MapContainer, Marker, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
@@ -16,7 +17,7 @@ export default function LocationMap({ lat , lng  }) {
     <MapContainer
       center={position}
       zoom={15}
-      scrollWheelZoom={false}
+      scrollWheelZoom={true}
       className="MapContainer"
     >
       <TileLayer
