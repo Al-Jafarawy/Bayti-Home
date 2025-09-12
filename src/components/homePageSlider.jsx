@@ -40,7 +40,7 @@ export default function HomePageSlider() {
   if (listing.length === 0) {
     return <></>;
   }
-  console.log(listing);
+
   return (
     listing && (
       <>
