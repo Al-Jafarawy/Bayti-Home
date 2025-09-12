@@ -32,7 +32,6 @@ export default function HomePageSlider() {
     fetchingListing();
   }, []);
 
- 
   //Ui output
   if (loading) {
     return <SpinnerOverlay />;
@@ -41,7 +40,7 @@ export default function HomePageSlider() {
   if (listing.length === 0) {
     return <></>;
   }
-
+  console.log(listing);
   return (
     listing && (
       <>
@@ -53,12 +52,21 @@ export default function HomePageSlider() {
           autoplay={{ delay: 3000 }}
           modules={[EffectFade, Navigation, Pagination, Autoplay]}
         >
-          {listing.map((url, index) => (
+          {listing.map((item, index) => (
             <SwiperSlide key={index}>
               <div
                 className="h-[400px] bg-center bg-cover"
-                style={{ backgroundImage: `url(${url.data.images[0]})` }}
+                style={{ backgroundImage: `url(${item.data.images[0]})` }}
               ></div>
+              {/* image Title */}
+              <h1 className="text-[#f1faee] absolute left-1 top-4 font-semibold max-w-[90%]  bg-[#4f5268] shadow-lg opacity-90 p-2 rounded-br-xl">
+                {item.data.title}
+              </h1>
+              {/*  bullinding state */}
+              <h1 className="text-[#f1faee] absolute left-1 bottom-1 font-semibold max-w-[90%] bg-[#e63946] shadow-lg opacity-90 p-2 rounded-tr-3xl truncate">
+                {item.data.discountedPrice ?? item.data.regularPrice}$
+                {item.data.type === "rent" && " / month"}
+              </h1>
             </SwiperSlide>
           ))}
         </Swiper>
