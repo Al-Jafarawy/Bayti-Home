@@ -182,7 +182,11 @@ export default function Listing() {
               />
             </div>
           ) : (
-            <p className="text-sm text-red-500 text-center">No location data</p>
+            <div className="mt-[30%]">
+              <p className="text-lg text-red-500 text-center">
+                No location data
+              </p>
+            </div>
           )}
         </div>
       </div>
