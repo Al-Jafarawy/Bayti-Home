@@ -25,7 +25,7 @@ export default function ListingUI({ data }) {
   }
 
   return (
-    <li className="max-w-sm rounded-2xl shadow p-3 bg-white flex flex-col gap-2">
+    <li className="max-w-sm rounded-2xl shadow p-3 bg-white flex flex-col gap-2 overflow-hidden">
       <Link className="contents" to={`/listing/${data.type}/${data.id}`}>
         <div className="relative">
           <img
@@ -43,13 +43,13 @@ export default function ListingUI({ data }) {
 
       <h2 className="text-lg font-semibold truncate">{data.title}</h2>
 
-      <p className="text-gray-600 text-sm line-clamp-2">{data.description}</p>
+      <p className="text-gray-600 text-sm line-clamp-2 overflow-hidden">{data.description}</p>
 
       <div className="text-green-800 font-bold">{`${price} $${suffix}`}</div>
 
-      <div className="text-xs text-gray-500">{data.address}</div>
+      <div className="text-xs text-gray-500 overflow-hidden">{data.address}</div>
 
-      <div className="flex items-center justify-between mt-2 text-sm text-gray-700">
+      <div className="flex items-center justify-between mt-2 text-sm text-gray-700 overflow-hidden">
         <div className="flex gap-4">
           <span>{data.beds} Beds</span>
           <span>{data.baths} Baths</span>
