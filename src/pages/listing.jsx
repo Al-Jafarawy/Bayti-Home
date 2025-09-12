@@ -82,6 +82,7 @@ export default function Listing() {
       )}
 
       {/* Cards */}
+
       <h1 className="text-center text-4xl font-handwriting text-teal-700 drop-shadow-md mb-2 p-10">
         Building Details
       </h1>
