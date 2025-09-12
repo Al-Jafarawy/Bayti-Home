@@ -3,11 +3,13 @@ import HomePageSlider from "../components/homePageSlider";
 import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
 import { db } from "../firebase";
 import ListingUI from "../components/listingUI";
+import { useNavigate } from "react-router";
 
 export default function Home() {
+
+  const navigate=useNavigate()
   //Offers
   const [offers, setOffers] = useState([]);
-
   useEffect(() => {
     async function fetchOffers() {
       try {
@@ -61,6 +63,7 @@ export default function Home() {
     }
     fetchRent();
   }, []);
+
   //sell
   const [sell, setSell] = useState([]);
   useEffect(() => {
@@ -91,47 +94,55 @@ export default function Home() {
 
   return (
     <>
-      <div>
-        <HomePageSlider />
+      <HomePageSlider />
+      <div className="max-w-7xl mx-auto">
+
         {/* Offers */}
-        <>
-          <h1 className="text-center text-4xl font-handwriting text-teal-700 drop-shadow-md mb-2 p-10">
-            Resent Offers
+        <div className="flex flex-col items-center mb-16 w-full px-4 sm:px-6 lg:px-8">
+          <h1 className="text-center text-4xl font-handwriting text-teal-700 drop-shadow-md m-10">
+            Recent Offers
           </h1>
-          <div className="flex  justify-center items-center">
-            <ul className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  max-w-7xl">
-              {offers.map((item) => (
-                <ListingUI key={item.id} data={item} />
-              ))}
-            </ul>
-          </div>
-        </>
-        {/* rent */}
-        <>
-          <h1 className="text-center text-4xl font-handwriting text-teal-700 drop-shadow-md mb-2 p-10">
-            Rent Unites
+          <ul className="grid gap-6 w-full grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 justify-items-center">
+            {offers.map((item) => (
+              <ListingUI key={item.id} data={item} />
+            ))}
+          </ul>
+          <button className="mt-8 px-8 py-3 bg-blue-500 text-white font-semibold rounded-2xl shadow-lg hover:bg-blue-600 transition duration-300" onClick={()=>{
+            navigate('/offers')
+          }}>
+            Show More Offers
+          </button>
+        </div>
+
+        {/* Rent */}
+        <div className="flex flex-col items-center mb-16 w-full px-4 sm:px-6 lg:px-8">
+          <h1 className="text-center text-4xl font-handwriting text-teal-700 drop-shadow-md m-10">
+            Rent Units
           </h1>
-          <div className="flex  justify-center items-center">
-            <ul className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  max-w-7xl">
-              {rent.map((item) => (
-                <ListingUI key={item.id} data={item} />
-              ))}
-            </ul>
-          </div>
-        </>
-        {/* sell  */}
-        <>
-          <h1 className="text-center text-4xl font-handwriting text-teal-700 drop-shadow-md mb-2 p-10">
-            Sell Unites
+          <ul className="grid gap-6 w-full grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 justify-items-center">
+            {rent.map((item) => (
+              <ListingUI key={item.id} data={item} />
+            ))}
+          </ul>
+          <button className="mt-8 px-8 py-3 bg-blue-500 text-white font-semibold rounded-2xl shadow-lg hover:bg-blue-600 transition duration-300">
+            Show More Rent
+          </button>
+        </div>
+
+        {/* Sell */}
+        <div className="flex flex-col items-center mb-16 w-full px-4 sm:px-6 lg:px-8">
+          <h1 className="text-center text-4xl font-handwriting text-teal-700 drop-shadow-md m-10">
+            Sell Units
           </h1>
-          <div className="flex  justify-center items-center">
-            <ul className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  max-w-7xl">
-              {sell.map((item) => (
-                <ListingUI key={item.id} data={item} />
-              ))}
-            </ul>
-          </div>
-        </>
+          <ul className="grid gap-6 w-full grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 justify-items-center">
+            {sell.map((item) => (
+              <ListingUI key={item.id} data={item} />
+            ))}
+          </ul>
+          <button className="mt-8 px-8 py-3 bg-blue-500 text-white font-semibold rounded-2xl shadow-lg hover:bg-blue-600 transition duration-300">
+            Show More Sell
+          </button>
+        </div>
       </div>
     </>
   );

@@ -5,3 +5,8 @@
 body{
     background-color: rgb(240, 253, 244);
 }
+
+
+html{
+    scrollbar-width: none;
+}
