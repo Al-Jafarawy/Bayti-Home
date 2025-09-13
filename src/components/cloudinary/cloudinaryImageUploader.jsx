@@ -1,4 +1,5 @@
 import { useState } from "react";
+import SpinnerOverlay from "../spiner";
 
 export default function CloudinaryImageUploader({ images, setImages }) {
   const maxImages = 3;
@@ -51,7 +52,15 @@ export default function CloudinaryImageUploader({ images, setImages }) {
         onChange={handleFiles}
         className="mb-2"
       />
-      {uploading && <p className="text-sm text-gray-500">Uploading...</p>}
+      {uploading && (
+        <div className="fixed inset-0 flex flex-col items-center justify-center bg-white/70 z-50">
+          <SpinnerOverlay />
+          <p className="mt-60 text-gray-700 text-lg font-medium">
+            Please wait, images are being processed...
+          </p>
+        </div>
+      )}
+
       <div className="flex gap-2 flex-wrap">
         {images.map((url, idx) => (
           <div key={idx} className="relative border p-1 rounded">

@@ -16,7 +16,7 @@ export default function LocationMap({ lat , lng  }) {
   return (
     <MapContainer
       center={position}
-      zoom={15}
+      zoom={9}
       scrollWheelZoom={true}
       className="MapContainer"
     >

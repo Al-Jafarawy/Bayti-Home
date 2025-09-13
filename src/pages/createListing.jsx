@@ -10,8 +10,8 @@ export default function CreateListing() {
   const [formData, setFormData] = useState({
     title: "",
     type: "sell",
-    beds: 1,
-    baths: 1,
+    beds: "",
+    baths: "",
     parking: true,
     furnished: false,
     offer: false,
