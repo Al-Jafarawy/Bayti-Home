@@ -109,7 +109,7 @@ export default function Listing() {
           </div>
 
           {/* Icons for Beds, Baths, Furnished, Parking */}
-          <div className="grid grid-cols-2 gap-y-6 gap-x-8 justify-items-start ml-28">
+          <div className="grid grid-cols-2 gap-y-6 gap-x-8 m-auto md:ml-12 md:justify-even md:ml-24">
             <div className="flex items-center gap-2">
               <FaBed className="text-blue-500 text-lg" />
               <span className="font-semibold">{listing.beds} Beds</span>
@@ -127,7 +127,7 @@ export default function Listing() {
             <div className="flex items-center gap-2">
               <FaCar className="text-blue-500 text-lg" />
               <span className="font-semibold">
-                {listing.parking ? "Parking" : "No Parking"}
+                {listing.parking ? "Parking area" : "No Parking"}
               </span>
             </div>
           </div>
