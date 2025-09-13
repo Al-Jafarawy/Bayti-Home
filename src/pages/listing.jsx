@@ -89,39 +89,44 @@ export default function Listing() {
 
       <div className="w-full max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-6 mt-6 ">
         {/* Details Card */}
-        <div className="bg-gradient-to-tr from-white to-blue-50 shadow-xl rounded-3xl p-6 flex flex-col space-y-4">
-          <h2 className="text-2xl font-bold text-slate-800">
-            {listing.title || "No Title"}
-          </h2>
+        <div className="bg-gradient-to-tr from-white to-blue-50 shadow-xl rounded-3xl p-6 flex flex-col justify-center space-y-6 h-full">
+          {/* Title + Address + Description */}
+          <div className="text-center space-y-2">
+            <h2 className="text-2xl font-bold text-slate-800">
+              {listing.title || "No Title"}
+            </h2>
 
-          {listing.address && (
-            <h3 className="text-lg font-medium text-blue-600 overflow-hidden">
-              {listing.address}
-            </h3>
-          )}
+            {listing.address && (
+              <h3 className="text-lg font-medium text-blue-600 truncate">
+                {listing.address}
+              </h3>
+            )}
 
-          {listing.description && (
-            <p className="text-slate-600 text-sm">{listing.description}</p>
-          )}
+            {listing.description && (
+              <p className="text-slate-600 text-sm leading-relaxed">
+                {listing.description}
+              </p>
+            )}
+          </div>
 
           {/* Icons for Beds, Baths, Furnished, Parking */}
-          <div className="grid grid-cols-2 gap-4 mt-3">
+          <div className="grid grid-cols-2 gap-y-6 gap-x-8 justify-items-center">
             <div className="flex items-center gap-2">
-              <FaBed className="text-blue-500" />
+              <FaBed className="text-blue-500 text-lg" />
               <span className="font-semibold">{listing.beds} Beds</span>
             </div>
             <div className="flex items-center gap-2">
-              <FaBath className="text-blue-500" />
+              <FaBath className="text-blue-500 text-lg" />
               <span className="font-semibold">{listing.baths} Baths</span>
             </div>
-            <div className="flex items-center gap-2">
-              <FaCouch className="text-blue-500" />
+            <div className="flex items-center gap-2 ml-4">
+              <FaCouch className="text-blue-500 text-lg" />
               <span className="font-semibold">
                 {listing.furnished ? "Furnished" : "Not Furnished"}
               </span>
             </div>
             <div className="flex items-center gap-2">
-              <FaCar className="text-blue-500" />
+              <FaCar className="text-blue-500 text-lg" />
               <span className="font-semibold">
                 {listing.parking ? "Parking" : "No Parking"}
               </span>
@@ -129,7 +134,7 @@ export default function Listing() {
           </div>
 
           {/* Additional Data */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 pb-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {Object.entries(listing).map(([key, value]) => {
               if (
                 [
@@ -151,9 +156,9 @@ export default function Listing() {
               return (
                 <div
                   key={key}
-                  className="bg-gradient-to-r from-indigo-50 via-purple-50 to-pink-50 p-4 rounded-xl shadow hover:shadow-md transition-all flex flex-col mb-3"
+                  className="bg-gradient-to-r from-indigo-50 via-purple-50 to-pink-50 p-4 rounded-xl shadow hover:shadow-md transition-all flex flex-col"
                 >
-                  <span className="text-slate-600 font-medium text-sm mb-1 capitalize">
+                  <span className="text-slate-600 font-medium text-sm capitalize mb-1">
                     {key.replace(/([A-Z])/g, " $1")}
                   </span>
                   <span className="text-slate-900 font-semibold text-base break-words">
