@@ -64,8 +64,12 @@ export default function HomePageSlider() {
               </h1>
               {/*  bullinding state */}
               <h1 className="text-[#f1faee] absolute left-1 bottom-1 font-semibold max-w-[90%] bg-[#e63946] shadow-lg opacity-90 p-2 rounded-tr-3xl truncate">
-                {item.data.discountedPrice ?? item.data.regularPrice}$
-                {item.data.type === "rent" && " / month"}
+                {item.data.discountedPrice &&
+                item.data.discountedPrice !== 0 &&
+                item.data.discountedPrice !== ""
+                  ? item.data.discountedPrice
+                  : item.data.regularPrice}
+                ${item.data.type === "rent" && " / month"}
               </h1>
             </SwiperSlide>
           ))}
