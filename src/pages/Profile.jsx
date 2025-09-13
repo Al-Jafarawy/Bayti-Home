@@ -76,66 +76,47 @@ export default function Profile() {
 
   return (
     <div className="min-h-screen bg-gray-50 p-6">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10 mb-6 items-stretch">
-        {/* List Column */}
-        <div className="p-6 flex items-center justify-center w-full">
-          <div
-            className="rounded-full bg-blue-100 aspect-square 
-                w-56 sm:w-64 md:w-72 
-                flex items-center justify-center 
-                text-gray-700 font-semibold text-xl"
-          >
-            {auth?.currentUser?.displayName || "User"}
-          </div>
-        </div>
-
-        {/* Profile Card */}
-        <div className="bg-white rounded-2xl shadow-md p-6 w-full flex flex-col">
-          <h1 className="text-2xl font-semibold text-gray-800 text-center mb-6">
-            Profile
-          </h1>
-          <div className="grid grid-cols-1 gap-4 flex-grow">
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Name
-              </label>
-              <div className="mt-1 px-3 py-2 rounded-lg border border-gray-300 bg-white text-gray-900">
-                {user.name}
-              </div>
+      <div className="max-w-6xl mx-auto mt-12 mb-12 px-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-3 gap-8 items-stretch">
+          {/* Profile Avatar */}
+          <div className="bg-gradient-to-br from-blue-100 to-blue-50 rounded-2xl shadow-md p-6 flex flex-col items-center justify-center text-center">
+            <div className="w-24 h-24 rounded-full bg-blue-200 flex items-center justify-center text-2xl font-bold text-blue-700 mb-4">
+              {user.name?.[0]?.toUpperCase() || "U"}
             </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 ">
-                Email
-              </label>
-              <div className="mt-1 px-3 py-2 rounded-lg border border-gray-300 bg-white text-gray-900 overflow-hidden ">
-                {user.email}
-              </div>
+            <h2 className="text-lg font-semibold text-gray-800">{user.name}</h2>
+            <p className="text-gray-600">{user.email}</p>
+          </div>
+
+          {/* Profile Actions Card */}
+          <div className="bg-gradient-to-br from-purple-100 to-purple-50 rounded-2xl shadow-md p-6 flex flex-col items-center justify-center text-center">
+            <h2 className="text-lg font-semibold text-gray-800 mb-4">
+              Manage Profile
+            </h2>
+            <div className="flex gap-4">
+              <button
+                onClick={() => setIsOpen(true)}
+                className="px-5 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-sm font-medium shadow-md 
+                 hover:shadow-lg hover:scale-105 active:scale-95 active:shadow-sm transition-all"
+              >
+                Edit
+              </button>
+
+              <button
+                onClick={handleLogout}
+                className="px-5 py-2 rounded-lg bg-gradient-to-r from-red-600 to-pink-600 text-white text-sm font-medium shadow-md 
+                 hover:shadow-lg hover:scale-105 active:scale-95 active:shadow-sm transition-all"
+              >
+                Logout
+              </button>
             </div>
           </div>
 
-          <div className="mt-6 flex flex-col gap-3">
-            <button
-              onClick={() => setIsOpen(true)}
-              className="w-full py-2 rounded-lg bg-green-600 text-white hover:bg-green-700 transition"
-            >
-              Edit Info
-            </button>
-            <button
-              onClick={handleLogout}
-              className="w-full py-2 rounded-lg border border-gray-300 hover:bg-gray-100 text-gray-800"
-            >
-              Logout
-            </button>
-          </div>
-        </div>
-
-        {/* Create Listing */}
-        <div className="rounded-2xl p-6 flex flex-col items-center justify-center w-full">
-          <div className="mt-12 pt-10">
-            <h2 className="text-xl font-semibold text-gray-800 mb-4 text-center">
+          {/* Create Listing */}
+          <div className="bg-gradient-to-br from-green-100 to-green-50 rounded-2xl shadow-md p-6 flex flex-col items-center justify-center text-center">
+            <h2 className="text-xl font-semibold text-gray-800 mb-4">
               Ready to Sell or Rent?
             </h2>
-            <p className="text-gray-600 mb-6 text-center">
+            <p className="text-gray-600 mb-6">
               Create a new listing to reach more buyers or renters.
             </p>
             <button
@@ -195,13 +176,21 @@ export default function Profile() {
           </div>
         </div>
       )}
+
+      {/* Listings */}
       <h1 className="text-center text-4xl font-handwriting text-teal-700 drop-shadow-md mb-2 p-10">
         My Listings
       </h1>
-      <div className="flex  justify-center items-center">
-        <ul className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  max-w-7xl">
+
+      <div className="flex justify-center items-center">
+        {listing.length === 0 && (
+          <div className="flex items-center justify-center text-gray-600 text-lg">
+            No listing data. You can create your list.
+          </div>
+        )}
+        <ul className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 max-w-7xl">
           {listing.map((item) => (
-            <ListingUI key={item.id} data={item} profile={true}/>
+            <ListingUI key={item.id} data={item} profile={true} />
           ))}
         </ul>
       </div>

@@ -28,6 +28,7 @@ export default function ListingUI({ data, profile }) {
     return navigate(`/listing/${data.type}/${data.id}`);
   }
   
+
   return (
     <li className="w-full max-w-sm rounded-2xl shadow p-3 bg-white flex flex-col gap-2 overflow-hidden h-full">
       <Link className="contents" to={`/listing/${data.type}/${data.id}`}>
