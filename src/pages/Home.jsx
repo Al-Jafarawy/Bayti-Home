@@ -12,14 +12,18 @@ import { db } from "../firebase";
 import ListingUI from "../components/listingUI";
 import { useNavigate } from "react-router";
 import { IoIosArrowDown } from "react-icons/io";
+import SpinnerOverlay from "../components/spiner";
+
 
 export default function Home() {
   const navigate = useNavigate();
+  const [loading, setLoading ]=useState(false)
   //Offers
   const [offers, setOffers] = useState([]);
   useEffect(() => {
     async function fetchOffers() {
       try {
+        setLoading(true)
         const offersRef = collection(db, "list_data");
         const q = query(
           offersRef,
@@ -36,7 +40,7 @@ export default function Home() {
           });
         });
         setOffers(listings);
-        console.log(listings);
+        setLoading(false)
       } catch (error) {
         console.log(error);
       }
@@ -102,6 +106,9 @@ export default function Home() {
     fetchSell();
   }, []);
 
+  if(loading){
+    return <SpinnerOverlay/>
+  }
   return (
     <>
       <HomePageSlider />

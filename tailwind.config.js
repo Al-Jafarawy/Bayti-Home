@@ -3,13 +3,13 @@ module.exports = {
   theme: {
     extend: {
       keyframes: {
-        bounceSlow: {
-          "0%, 100%": { transform: "translateY(-1px)" },
-          "50%": { transform: "translateY(4px)" },
+        slidePulse: {
+          "0%, 60%, 100%": { transform: "scale(0.6)" },
+          "30%": { transform: "scale(1.5)" },
         },
       },
       animation: {
-        bounceSlow: "bounceSlow 1.7s infinite",
+        slidePulse: "slidePulse 1.2s ease-in-out infinite",
       },
     },
   },

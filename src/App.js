@@ -12,6 +12,7 @@ import EditListingPage from "./pages/EditListingPage";
 import Listing from "./pages/listing";
 import Rent from "./pages/rent";
 import Sell from "./pages/sell";
+import Footer from "./components/footer";
 function App() {
   return (
     <>
@@ -41,6 +42,7 @@ function App() {
             />
           </Route>
         </Routes>
+        <Footer/>
       </Router>
     </>
   );
