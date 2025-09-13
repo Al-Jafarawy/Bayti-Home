@@ -82,7 +82,6 @@ export default function Listing() {
       )}
 
       {/* Cards */}
-
       <h1 className="text-center text-4xl font-handwriting text-teal-700 drop-shadow-md mb-2 p-10">
         Building Details
       </h1>
@@ -110,7 +109,7 @@ export default function Listing() {
           </div>
 
           {/* Icons for Beds, Baths, Furnished, Parking */}
-          <div className="grid grid-cols-2 gap-y-6 gap-x-8 justify-items-center">
+          <div className="grid grid-cols-2 gap-y-6 gap-x-8 justify-items-start ml-28">
             <div className="flex items-center gap-2">
               <FaBed className="text-blue-500 text-lg" />
               <span className="font-semibold">{listing.beds} Beds</span>
@@ -119,7 +118,7 @@ export default function Listing() {
               <FaBath className="text-blue-500 text-lg" />
               <span className="font-semibold">{listing.baths} Baths</span>
             </div>
-            <div className="flex items-center gap-2 ml-4">
+            <div className="flex items-center gap-2 ">
               <FaCouch className="text-blue-500 text-lg" />
               <span className="font-semibold">
                 {listing.furnished ? "Furnished" : "Not Furnished"}

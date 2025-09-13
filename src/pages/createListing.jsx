@@ -1,5 +1,11 @@
 import { useEffect, useState } from "react";
-import { addDoc, collection, doc, getDoc, serverTimestamp } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  getDoc,
+  serverTimestamp,
+} from "firebase/firestore";
 import { db } from "../firebase";
 import SpinnerOverlay from "../components/spiner";
 import CloudinaryImageUploader from "../components/cloudinary/cloudinaryImageUploader";
@@ -63,7 +69,10 @@ export default function CreateListing() {
 
   const handleDirectionsChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, directions: { ...formData.directions, [name]: value } });
+    setFormData({
+      ...formData,
+      directions: { ...formData.directions, [name]: value },
+    });
   };
 
   const handleSubmit = async (e) => {
@@ -89,7 +98,7 @@ export default function CreateListing() {
     }
 
     try {
-      const docRef = await addDoc(collection(db, "list_data"), {
+      await addDoc(collection(db, "list_data"), {
         ...formData,
         timestamp: serverTimestamp(),
         userRef: auth.currentUser.uid,
@@ -106,7 +115,10 @@ export default function CreateListing() {
 
   return (
     <div className="min-h-screen bg-green-50 p-6">
-      <form onSubmit={handleSubmit} className="max-w-6xl mx-auto bg-white shadow-md rounded-2xl p-6">
+      <form
+        onSubmit={handleSubmit}
+        className="max-w-6xl mx-auto bg-white shadow-md rounded-2xl p-6"
+      >
         <h1 className="text-2xl font-bold text-center mb-6">
           {params.listingId ? "Edit Listing" : "Create Listing"}
         </h1>
@@ -123,7 +135,11 @@ export default function CreateListing() {
                   key={option}
                   type="button"
                   onClick={() => setFormData({ ...formData, type: option })}
-                  className={`flex-1 py-2 rounded-lg border ${formData.type === option ? "bg-gray-700 text-white" : "bg-white"}`}
+                  className={`flex-1 py-2 rounded-lg border ${
+                    formData.type === option
+                      ? "bg-gray-700 text-white"
+                      : "bg-white"
+                  }`}
                 >
                   {option.toUpperCase()}
                 </button>
@@ -173,14 +189,20 @@ export default function CreateListing() {
           {/* Parking / Furnished toggles */}
           {["parking", "furnished"].map((field) => (
             <div key={field}>
-              <label className="block mb-2 font-medium">{field.charAt(0).toUpperCase() + field.slice(1)}</label>
+              <label className="block mb-2 font-medium">
+                {field.charAt(0).toUpperCase() + field.slice(1)}
+              </label>
               <div className="flex gap-2">
                 {[true, false].map((value) => (
                   <button
                     key={String(value)}
                     type="button"
                     onClick={() => setFormData({ ...formData, [field]: value })}
-                    className={`flex-1 py-2 rounded-lg border ${formData[field] === value ? "bg-gray-700 text-white" : "bg-white"}`}
+                    className={`flex-1 py-2 rounded-lg border ${
+                      formData[field] === value
+                        ? "bg-gray-700 text-white"
+                        : "bg-white"
+                    }`}
                   >
                     {value ? "YES" : "NO"}
                   </button>
@@ -201,20 +223,38 @@ export default function CreateListing() {
             />
           </div>
 
-          {/* Latitude / Longitude */}
-          {["latitude", "longitude"].map((coord) => (
-            <div key={coord}>
-              <label className="block mb-2 font-medium">{coord.charAt(0).toUpperCase() + coord.slice(1)}</label>
+          {/* Latitude & Longitude */}
+          <div className="grid grid-cols-2 gap-4 md:col-span-2 lg:col-span-3">
+            <div>
+              <label className="block mb-2 font-medium">Latitude</label>
               <input
                 type="number"
                 step="any"
-                name={coord}
-                value={formData.directions[coord]}
+                name="latitude"
+                value={formData.directions.latitude}
                 onChange={handleDirectionsChange}
                 className="w-full border rounded-lg p-2"
               />
             </div>
-          ))}
+
+            <div>
+              <label className="block mb-2 font-medium">Longitude</label>
+              <input
+                type="number"
+                step="any"
+                name="longitude"
+                value={formData.directions.longitude}
+                onChange={handleDirectionsChange}
+                className="w-full border rounded-lg p-2"
+              />
+            </div>
+
+            <div className="col-span-2">
+              <p className="text-red-600 text-sm mt-2">
+                ⚠️ It's important to show place on the map
+              </p>
+            </div>
+          </div>
 
           {/* Description */}
           <div className="md:col-span-2 lg:col-span-3">
@@ -246,18 +286,28 @@ export default function CreateListing() {
                 value={formData.discountedPrice}
                 onChange={handleChange}
                 disabled={!formData.offer}
-                className={`flex-1 border rounded-lg p-2 ${!formData.offer ? "bg-gray-100 cursor-not-allowed" : ""}`}
+                className={`flex-1 border rounded-lg p-2 ${
+                  !formData.offer ? "bg-gray-100 cursor-not-allowed" : ""
+                }`}
                 placeholder="Discounted Price"
               />
               <div className="flex flex-col items-center justify-center w-[80px]">
-                <span className="text-xs font-medium text-gray-700 mb-2">Offer</span>
+                <span className="text-xs font-medium text-gray-700 mb-2">
+                  Offer
+                </span>
                 <button
                   type="button"
-                  onClick={() => setFormData({ ...formData, offer: !formData.offer })}
-                  className={`w-12 h-6 rounded-full relative transition-colors duration-300 ${formData.offer ? "bg-green-500" : "bg-gray-300"}`}
+                  onClick={() =>
+                    setFormData({ ...formData, offer: !formData.offer })
+                  }
+                  className={`w-12 h-6 rounded-full relative transition-colors duration-300 ${
+                    formData.offer ? "bg-green-500" : "bg-gray-300"
+                  }`}
                 >
                   <span
-                    className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow transform transition-transform duration-300 ${formData.offer ? "translate-x-6" : "translate-x-0"}`}
+                    className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow transform transition-transform duration-300 ${
+                      formData.offer ? "translate-x-6" : "translate-x-0"
+                    }`}
                   />
                 </button>
               </div>
@@ -267,12 +317,20 @@ export default function CreateListing() {
           {/* Images */}
           <div className="md:col-span-2 lg:col-span-3">
             <label className="block mb-2 font-medium">Images</label>
-            <p className="text-sm mb-2">The first image will be the cover (max 3).</p>
-            <CloudinaryImageUploader images={formData.images} setImages={(imgs) => setFormData({ ...formData, images: imgs })} />
+            <p className="text-sm mb-2">
+              The first image will be the cover (max 3).
+            </p>
+            <CloudinaryImageUploader
+              images={formData.images}
+              setImages={(imgs) => setFormData({ ...formData, images: imgs })}
+            />
           </div>
         </div>
 
-        <button type="submit" className="mt-6 w-full bg-gray-700 text-white py-3 rounded-lg font-semibold">
+        <button
+          type="submit"
+          className="mt-6 w-full bg-gray-700 text-white py-3 rounded-lg font-semibold"
+        >
           {params.listingId ? "Update Listing" : "Create Listing"}
         </button>
       </form>

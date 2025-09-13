@@ -201,7 +201,7 @@ export default function Profile() {
       <div className="flex  justify-center items-center">
         <ul className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  max-w-7xl">
           {listing.map((item) => (
-            <ListingUI key={item.id} data={item} />
+            <ListingUI key={item.id} data={item} profile={true}/>
           ))}
         </ul>
       </div>

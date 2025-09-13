@@ -7,7 +7,7 @@ import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 dayjs.extend(relativeTime);
 
-export default function ListingUI({ data }) {
+export default function ListingUI({ data, profile }) {
   const navigate = useNavigate();
   const [showDeletePopup, setShowDeletePopup] = useState(false);
   const price = data.offer ? data.discountedPrice : data.regularPrice;
@@ -24,6 +24,10 @@ export default function ListingUI({ data }) {
     return navigate(`/edit-listing/${data.id}`);
   }
 
+  function navigateFn() {
+    return navigate(`/listing/${data.type}/${data.id}`);
+  }
+  
   return (
     <li className="w-full max-w-sm rounded-2xl shadow p-3 bg-white flex flex-col gap-2 overflow-hidden h-full">
       <Link className="contents" to={`/listing/${data.type}/${data.id}`}>
@@ -61,23 +65,32 @@ export default function ListingUI({ data }) {
           <span>{data.beds} Beds</span>
           <span>{data.baths} Baths</span>
         </div>
+        {profile ? (
+          <div className="flex gap-3 text-gray-500">
+            <button
+              className="text-blue-600 hover:text-blue-800"
+              title="Edit"
+              onClick={EditPopupState}
+            >
+              <FiEdit2 size={18} />
+            </button>
+            <button
+              onClick={deletePopupState}
+              className="text-red-600 hover:text-red-800"
+              title="Delete"
+            >
+              <FiTrash2 size={18} />
+            </button>
+          </div>
+        ) : (
+          <p
+            className="text-red-500 text-sm italic mt-2 mr-2 cursor-pointer"
+            onClick={navigateFn}
+          >
+            Check details
+          </p>
+        )}
 
-        <div className="flex gap-3 text-gray-500">
-          <button
-            className="text-blue-600 hover:text-blue-800"
-            title="Edit"
-            onClick={EditPopupState}
-          >
-            <FiEdit2 size={18} />
-          </button>
-          <button
-            onClick={deletePopupState}
-            className="text-red-600 hover:text-red-800"
-            title="Delete"
-          >
-            <FiTrash2 size={18} />
-          </button>
-        </div>
         {showDeletePopup && (
           <ConfirmDelete
             docId={data.id}
