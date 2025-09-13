@@ -4,12 +4,12 @@ module.exports = {
     extend: {
       keyframes: {
         bounceSlow: {
-          '0%, 100%': { transform: 'translateY(0)' },
-          '50%': { transform: 'translateY(6px)' },
+          "0%, 100%": { transform: "translateY(-1px)" },
+          "50%": { transform: "translateY(4px)" },
         },
       },
       animation: {
-        bounceSlow: 'bounceSlow 1.2s infinite',
+        bounceSlow: "bounceSlow 1.7s infinite",
       },
     },
   },

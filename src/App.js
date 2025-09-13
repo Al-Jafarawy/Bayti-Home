@@ -10,6 +10,8 @@ import Header from "./components/Header";
 import CreateListing from "./pages/createListing";
 import EditListingPage from "./pages/EditListingPage";
 import Listing from "./pages/listing";
+import Rent from "./pages/rent";
+import Sell from "./pages/sell";
 function App() {
   return (
     <>
@@ -21,7 +23,9 @@ function App() {
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/offers" element={<Offers />} />
-          <Route path="/listing/:cat/:listingId" element={< Listing/>} />
+          <Route path="/rent" element={<Rent />} />
+          <Route path="/sell" element={<Sell />} />
+          <Route path="/listing/:cat/:listingId" element={<Listing />} />
 
           {/* private Route */}
           <Route path="/profile" element={<PrivateRoute />}>
@@ -31,7 +35,10 @@ function App() {
             <Route path="/create-listing" element={<CreateListing />} />
           </Route>
           <Route path="/edit-listing" element={<PrivateRoute />}>
-            <Route path="/edit-listing/:listingId" element={<EditListingPage />} />
+            <Route
+              path="/edit-listing/:listingId"
+              element={<EditListingPage />}
+            />
           </Route>
         </Routes>
       </Router>

@@ -11,6 +11,7 @@ import {
 import { db } from "../firebase";
 import ListingUI from "../components/listingUI";
 import { useNavigate } from "react-router";
+import { IoIosArrowDown } from "react-icons/io";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -108,7 +109,7 @@ export default function Home() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16">
         {/* Offers */}
         <div className="flex flex-col items-center mb-20">
-          <h1 className="text-center text-4xl font-handwriting text-teal-700 drop-shadow-lg mb-4 relative">
+          <h1 className="text-center text-4xl font-handwriting text-teal-700 drop-shadow-lg mb-4 relative pb-3">
             Recent Offers
             <span className="block w-24 h-1 bg-teal-500 mt-4 mx-auto rounded-full animate-pulse"></span>
           </h1>
@@ -119,17 +120,19 @@ export default function Home() {
           </ul>
 
           <button
-            className="mt-8 px-6 py-3 border border-blue-500 text-blue-500 font-semibold rounded-2xl  text-blue-500 font-semibold rounded-2xl flex items-center gap-2 hover:bg-blue-500 hover:text-white transition duration-300 focus:outline-none"
+            className="mt-8 px-6 py-3 border border-blue-500 text-blue-500 font-semibold rounded-2xl  text-blue-500 font-semibold rounded-2xl flex items-center gap-2 hover:bg-blue-400 hover:text-white transition duration-300 focus:outline-none "
             onClick={() => navigate("/offers")}
           >
             Show More
-            <span className="animate-bounceSlow">↓</span>
+            <span className="animate-bounceSlow">
+              <IoIosArrowDown className="animate-bounceSlow" size={15} />
+            </span>
           </button>
         </div>
 
         {/* Rent */}
         <div className="flex flex-col items-center mb-20">
-          <h1 className="text-center text-4xl font-handwriting text-teal-700 drop-shadow-lg mb-4 relative">
+          <h1 className="text-center text-4xl font-handwriting text-teal-700 drop-shadow-lg mb-4 relative  pb-3">
             Rent Units
             <span className="block w-24 h-1 bg-teal-500 mt-4 mx-auto rounded-full animate-pulse"></span>
           </h1>
@@ -138,15 +141,20 @@ export default function Home() {
               <ListingUI key={item.id} data={item} />
             ))}
           </ul>
-          <button className="mt-8 px-6 py-3 border border-blue-500 text-blue-500 font-semibold rounded-2xl  text-blue-500 font-semibold rounded-2xl flex items-center gap-2 hover:bg-blue-500 hover:text-white transition duration-300 focus:outline-none">
+          <button
+            className="mt-8 px-6 py-3 border border-blue-500 text-blue-500 font-semibold rounded-2xl  text-blue-500 font-semibold rounded-2xl flex items-center gap-2 hover:bg-blue-400 hover:text-white transition duration-300 focus:outline-none "
+            onClick={() => navigate("/rent")}
+          >
             Show More
-            <span className="animate-bounceSlow">↓</span>
+            <span className="animate-bounceSlow">
+              <IoIosArrowDown className="animate-bounceSlow" size={15} />
+            </span>
           </button>
         </div>
 
         {/* Sell */}
         <div className="flex flex-col items-center mb-20">
-          <h1 className="text-center text-4xl font-handwriting text-teal-700 drop-shadow-lg mb-4 relative">
+          <h1 className="text-center text-4xl font-handwriting text-teal-700 drop-shadow-lg mb-4 relative  pb-3">
             Sell Units
             <span className="block w-24 h-1 bg-teal-500 mt-4 mx-auto rounded-full animate-pulse"></span>
           </h1>
@@ -155,9 +163,14 @@ export default function Home() {
               <ListingUI key={item.id} data={item} />
             ))}
           </ul>
-          <button className="mt-8 px-6 py-3 border border-blue-500 text-blue-500 font-semibold rounded-2xl  text-blue-500 font-semibold rounded-2xl flex items-center gap-2 hover:bg-blue-500 hover:text-white transition duration-300 focus:outline-none">
+          <button
+            className="mt-8 px-6 py-3 border border-blue-500 text-blue-500 font-semibold rounded-2xl  text-blue-500 font-semibold rounded-2xl flex items-center gap-2 hover:bg-blue-400 hover:text-white transition duration-300 focus:outline-none "
+            onClick={() => navigate("/sell")}
+          >
             Show More
-            <span className="animate-bounceSlow">↓</span>
+            <span className="animate-bounceSlow">
+              <IoIosArrowDown className="animate-bounceSlow" size={15} />
+            </span>
           </button>
         </div>
       </div>
