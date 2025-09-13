@@ -90,7 +90,7 @@ export default function Listing() {
         {/* Details Card */}
         <div className="bg-gradient-to-tr from-white to-blue-50 shadow-xl rounded-3xl p-6 flex flex-col justify-center space-y-6 h-full">
           {/* Title + Address + Description */}
-          <div className="text-center space-y-2">
+          <div className="text-center space-y-2 bg-gray-100 p-5">
             <h2 className="text-2xl font-bold text-slate-800">
               {listing.title || "No Title"}
             </h2>
